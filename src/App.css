@@ -242,4 +242,178 @@ body {
   .example-category li {
     font-size: 1rem;
   }
+}
+
+/* --- Auth styles --- */
+.auth-container {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+}
+.auth-card {
+  background: #fff;
+  padding: 2.5rem 2rem;
+  border-radius: 18px;
+  box-shadow: 0 8px 24px rgba(44, 62, 80, 0.08);
+  width: 100%;
+  max-width: 400px;
+  text-align: center;
+}
+.auth-card h2 {
+  margin-bottom: 1.5rem;
+  color: #2c3e50;
+}
+.role-switch {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 1.5rem;
+  gap: 1rem;
+}
+.role-switch button {
+  background: #f0f4f8;
+  border: none;
+  padding: 0.5rem 1.5rem;
+  border-radius: 8px;
+  font-size: 1rem;
+  cursor: pointer;
+  color: #2c3e50;
+  transition: background 0.2s;
+}
+.role-switch .active {
+  background: #3498db;
+  color: #fff;
+}
+.auth-card input {
+  width: 100%;
+  padding: 0.7rem;
+  margin-bottom: 1rem;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  font-size: 1rem;
+}
+.main-btn {
+  width: 100%;
+  background: #3498db;
+  color: #fff;
+  border: none;
+  padding: 0.8rem;
+  border-radius: 8px;
+  font-size: 1.1rem;
+  cursor: pointer;
+  margin-top: 0.5rem;
+  transition: background 0.2s;
+}
+.main-btn:hover {
+  background: #217dbb;
+}
+.switch-link {
+  margin-top: 1.2rem;
+  color: #34495e;
+  font-size: 1rem;
+}
+.switch-link span {
+  color: #3498db;
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+/* --- Projects styles --- */
+.projects-container {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 2rem 1rem 3rem 1rem;
+}
+.add-project-form {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 2rem;
+  flex-wrap: wrap;
+}
+.add-project-form input {
+  flex: 1 1 200px;
+  padding: 0.7rem;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  font-size: 1rem;
+}
+.projects-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 2rem;
+}
+.project-card {
+  background: #fff;
+  border-radius: 15px;
+  box-shadow: 0 4px 12px rgba(44, 62, 80, 0.08);
+  padding: 2rem 1.5rem 1.5rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  position: relative;
+  transition: box-shadow 0.2s, transform 0.2s;
+}
+.project-card:hover {
+  box-shadow: 0 8px 24px rgba(44, 62, 80, 0.13);
+  transform: translateY(-4px);
+}
+.project-card h3 {
+  color: #2c3e50;
+  font-size: 1.3rem;
+  margin-bottom: 0.5rem;
+}
+.project-card p {
+  color: #34495e;
+  font-size: 1.05rem;
+}
+.project-files, .project-comments {
+  margin-top: 0.5rem;
+}
+.project-files ul, .project-comments ul {
+  margin: 0.5rem 0 0 0;
+  padding-left: 1.2rem;
+}
+.file-input {
+  margin-top: 0.7rem;
+}
+.comment-form {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+}
+.comment-form input {
+  flex: 1;
+  padding: 0.5rem;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  font-size: 1rem;
+}
+.delete-btn {
+  background: #e74c3c;
+  color: #fff;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  font-size: 1rem;
+  cursor: pointer;
+  margin-top: 0.5rem;
+  align-self: flex-end;
+  transition: background 0.2s;
+}
+.delete-btn:hover {
+  background: #c0392b;
+}
+
+@media (max-width: 700px) {
+  .projects-list {
+    grid-template-columns: 1fr;
+  }
+  .add-project-form {
+    flex-direction: column;
+    gap: 0.7rem;
+  }
+  .project-card {
+    padding: 1.2rem 0.7rem 1rem 0.7rem;
+  }
 } 

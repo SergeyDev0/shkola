@@ -1,4 +1,7 @@
 import React from "react";
+import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
+import AuthPage from "./pages/AuthPage";
+import ProjectsPage from "./pages/ProjectsPage";
 import { motion } from "framer-motion";
 import "./App.css";
 
@@ -107,98 +110,13 @@ const App = () => {
   ];
 
   return (
-    <div className="app">
-      <motion.header
-        initial={{ y: -100 }}
-        animate={{ y: 0 }}
-        transition={{ duration: 0.8 }}
-        className="header"
-      >
-        <h1>МКОУ СОШ №2 г.Южно-Сухокумска</h1>
-        <h2>Инструкция по ведению школьных проектов</h2>
-        <p className="header-description">
-          Подробное руководство по организации и реализации школьных проектов для учащихся и педагогов
-        </p>
-      </motion.header>
-
-      <div className="content">
-        {sections.map((section, index) => (
-          <motion.div
-            key={index}
-            className="section"
-            initial={{ opacity: 0, x: -50 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.5, delay: index * 0.1 }}
-            whileHover={{ scale: 1.02 }}
-          >
-            <div className="section-icon">{section.icon}</div>
-            <h3>{section.title}</h3>
-            <p>{section.content}</p>
-          </motion.div>
-        ))}
-      </div>
-
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 1 }}
-        className="about-section"
-      >
-        <h2 className="section-title">О приложении</h2>
-        <div className="about-content">
-          {aboutSections.map((section, index) => (
-            <motion.div
-              key={index}
-              className="about-card"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: index * 0.2 }}
-            >
-              <div className="about-icon">{section.icon}</div>
-              <h3>{section.title}</h3>
-              <p>{section.content}</p>
-            </motion.div>
-          ))}
-        </div>
-      </motion.div>
-
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 1.2 }}
-        className="examples-section"
-      >
-        <h2 className="section-title">Примеры успешных проектов</h2>
-        <div className="examples-content">
-          {exampleProjects.map((category, index) => (
-            <motion.div
-              key={index}
-              className="example-category"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: index * 0.2 }}
-            >
-              <h3>{category.title}</h3>
-              <ul>
-                {category.examples.map((example, idx) => (
-                  <li key={idx}>{example}</li>
-                ))}
-              </ul>
-            </motion.div>
-          ))}
-        </div>
-      </motion.div>
-
-      <motion.footer
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 1.5 }}
-        className="footer"
-      >
-        <p>© 2024 МКОУ СОШ №2 г.Южно-Сухокумска</p>
-        <p className="footer-contact">Контактная информация: school2@example.com</p>
-      </motion.footer>
-    </div>
+    <Router>
+      <Routes>
+        <Route path="/" element={<Navigate to="/auth" />} />
+        <Route path="/auth" element={<AuthPage />} />
+        <Route path="/projects" element={<ProjectsPage />} />
+      </Routes>
+    </Router>
   );
 };
 
