@@ -2,6 +2,7 @@ import React from "react";
 import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
 import AuthPage from "./pages/AuthPage";
 import ProjectsPage from "./pages/ProjectsPage";
+import PrivateRoute from "./components/PrivateRoute";
 import { motion } from "framer-motion";
 import "./App.css";
 
@@ -112,9 +113,16 @@ const App = () => {
   return (
     <Router>
       <Routes>
-        <Route path="/" element={<Navigate to="/auth" />} />
         <Route path="/auth" element={<AuthPage />} />
-        <Route path="/projects" element={<ProjectsPage />} />
+        <Route
+          path="/projects"
+          element={
+            <PrivateRoute>
+              <ProjectsPage />
+            </PrivateRoute>
+          }
+        />
+        <Route path="/" element={<Navigate to="/projects" replace />} />
       </Routes>
     </Router>
   );

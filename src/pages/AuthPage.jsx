@@ -1,22 +1,60 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 import "../App.css";
 
 const AuthPage = () => {
   const [isRegister, setIsRegister] = useState(false);
   const [role, setRole] = useState("student");
-  const [form, setForm] = useState({ email: "", password: "", name: "" });
+  const [form, setForm] = useState({ email: "", password: "", name: "", surname: "", patronymic: "", roleId: 1 });
   const navigate = useNavigate();
+
+	React.useEffect(() => {
+		console.log(form)
+	}, [form.roleId]);
 
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
+		console.log({ ...form, [e.target.name]: e.target.value })
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Здесь должна быть интеграция с сервером/хранилищем
-    localStorage.setItem("role", role);
-    navigate("/projects");
+    if(isRegister) {
+      axios.post("https://monosortcoffee.ru/scsp/user/create",
+        {
+          "name": form.name,
+          "surname": form.surname,
+          "patronymic": form.patronymic,
+          "email": form.email,
+          "password": form.password,
+          "roleId": form.roleId
+        }
+      )
+      .then((res) => {
+				console.log(res)
+        if (res.status === 200) {
+					setIsRegister(false);
+        }
+      })
+      .catch((err) => console.error(err));
+    } else {
+      axios.post("https://monosortcoffee.ru/scsp/user/login",
+        {
+          "email": form.email,
+          "password": form.password
+        }
+      )
+      .then((res) => {
+				console.log(res);
+        if (res.data.accessToken) {
+          localStorage.setItem('token', res.data.accessToken);
+					localStorage.setItem('isAdmin', res.data.isAdmin);
+          navigate('/projects');
+        }
+      })
+      .catch((err) => console.error(err));
+    }
   };
 
   return (
@@ -25,28 +63,46 @@ const AuthPage = () => {
         <h2>{isRegister ? "Регистрация" : "Вход"}</h2>
         <div className="role-switch">
           <button
-            className={role === "student" ? "active" : ""}
-            onClick={() => setRole("student")}
+            className={form.roleId === 1 ? "active" : ""}
+            onClick={() => setForm({ ...form, ["roleId"]: 1 })}
           >
             Ученик
           </button>
           <button
-            className={role === "teacher" ? "active" : ""}
-            onClick={() => setRole("teacher")}
+            className={form.roleId === 2 ? "active" : ""}
+            onClick={() => setForm({ ...form, ["roleId"]: 2 })}
           >
             Преподаватель
           </button>
         </div>
         <form onSubmit={handleSubmit}>
           {isRegister && (
-            <input
-              type="text"
-              name="name"
-              placeholder="Имя"
-              value={form.name}
-              onChange={handleChange}
-              required
-            />
+            <>
+            	<input
+	              type="text"
+	              name="name"
+	              placeholder="Имя"
+	              value={form.name}
+	              onChange={handleChange}
+	              required
+	            />
+							<input
+	              type="text"
+	              name="surname"
+	              placeholder="Фамилия"
+	              value={form.surname}
+	              onChange={handleChange}
+	              required
+	            />
+							<input
+	              type="text"
+	              name="patronymic"
+	              placeholder="Отчество"
+	              value={form.patronymic}
+	              onChange={handleChange}
+	              required
+	            />
+            </>
           )}
           <input
             type="email"
@@ -86,4 +142,4 @@ const AuthPage = () => {
   );
 };
 
-export default AuthPage; 
+export default AuthPage;

@@ -374,11 +374,15 @@ body {
   margin: 0.5rem 0 0 0;
   padding-left: 1.2rem;
 }
+.project-comments li {
+	overflow-wrap: break-word;
+}
 .file-input {
   margin-top: 0.7rem;
 }
 .comment-form {
   display: flex;
+	flex-direction: column;
   gap: 0.5rem;
   margin-top: 0.5rem;
 }
@@ -397,6 +401,7 @@ body {
   border-radius: 8px;
   font-size: 1rem;
   cursor: pointer;
+	margin: auto;
   margin-top: 0.5rem;
   align-self: flex-end;
   transition: background 0.2s;
@@ -405,15 +410,220 @@ body {
   background: #c0392b;
 }
 
-@media (max-width: 700px) {
-  .projects-list {
-    grid-template-columns: 1fr;
-  }
-  .add-project-form {
-    flex-direction: column;
-    gap: 0.7rem;
-  }
-  .project-card {
-    padding: 1.2rem 0.7rem 1rem 0.7rem;
-  }
+/* Стили для загрузки файлов */
+.files-section {
+  margin: 20px 0;
+  padding: 15px;
+  border-radius: 8px;
+  background: #ffffff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.files-section {
+  padding: 16px;
+  background: #f8f9fa;
+  border-radius: 8px;
+  margin: 16px 0;
+}
+
+.files-section h4 {
+  margin: 0 0 16px 0;
+  color: #2c3e50;
+}
+
+/* Стили для списка файлов */
+.files-list {
+  margin-bottom: 16px;
+}
+
+.files-list {
+  list-style: none;
+  padding: 0;
+  margin: 10px 0;
+}
+
+.file-item {
+  display: flex;
+  align-items: center;
+  padding: 8px 12px;
+  margin: 5px 0;
+  background: #f8f9fa;
+  border-radius: 6px;
+  transition: all 0.2s ease;
+}
+
+.file-item:hover {
+  background: #e9ecef;
+  transform: translateX(5px);
+}
+
+.file-item {
+  padding: 8px;
+  margin: 5px 0;
+  background-color: #f5f5f5;
+  border-radius: 4px;
+  transition: background-color 0.2s;
+}
+
+.file-item:hover {
+  background-color: #e9e9e9;
+}
+
+.file-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.file-link {
+  color: #0066cc;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.file-link:hover {
+  text-decoration: underline;
+}
+
+.file-date {
+  color: #666;
+  font-size: 0.9em;
+	margin-left: .5rem;
+}
+
+.file-link {
+  color: #3498db;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.file-link:hover {
+  color: #2980b9;
 } 
+
+/* Стили для формы загрузки */
+.file-upload-form {
+  margin-top: 16px;
+  padding-top: 16px;
+  border-top: 1px solid #e9ecef;
+}
+
+.file-upload-error {
+  background: #fee2e2;
+  color: #dc2626;
+  padding: 8px 12px;
+  border-radius: 6px;
+  margin-bottom: 12px;
+  font-size: 14px;
+}
+
+.file-input-wrapper {
+  position: relative;
+  padding: 24px;
+  border: 2px dashed #cbd5e0;
+  border-radius: 8px;
+  text-align: center;
+  transition: all 0.3s ease;
+}
+
+.file-input-wrapper:hover {
+  border-color: #3498db;
+  background: rgba(52, 152, 219, 0.05);
+}
+
+.file-input-wrapper.uploading {
+  opacity: 0.7;
+  pointer-events: none;
+}
+
+.file-input {
+  position: absolute;
+  width: 0.1px;
+  height: 0.1px;
+  opacity: 0;
+  overflow: hidden;
+  z-index: -1;
+}
+
+.file-input-label {
+  display: inline-block;
+  padding: 10px 20px;
+  background: #3498db;
+  color: white;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: all 0.2s ease;
+}
+
+.file-input-label:hover {
+  background: #2980b9;
+  transform: translateY(-1px);
+}
+
+.file-input-label:active {
+  transform: translateY(1px);
+}
+
+.file-input-info {
+  margin-top: 12px;
+  color: #64748b;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+/* Анимация загрузки */
+.file-input-wrapper.uploading::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  background: linear-gradient(90deg, #3498db 0%, #2980b9 50%, #3498db 100%);
+  background-size: 200% 100%;
+  animation: loading 1.5s linear infinite;
+}
+
+@keyframes loading {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+.student-select {
+  margin: 1.5rem 0 2rem 0;
+  display: flex;
+  justify-content: center;
+}
+
+.student-select select {
+  padding: 0.7rem 2.5rem 0.7rem 1rem;
+  border: 2px solid #3498db;
+  border-radius: 8px;
+  background: #f5f7fa url('data:image/svg+xml;utf8,<svg fill="%233498db" height="20" viewBox="0 0 24 24" width="20" xmlns="http://www.w3.org/2000/svg"><path d="M7 10l5 5 5-5z"/></svg>') no-repeat right 1rem center/1.2em auto;
+  color: #2c3e50;
+  font-size: 1rem;
+  appearance: none;
+  cursor: pointer;
+  transition: border-color 0.2s, box-shadow 0.2s;
+  min-width: 220px;
+}
+
+.student-select select:focus {
+  border-color: #217dbb;
+  outline: none;
+  box-shadow: 0 0 0 2px #c3e2fa;
+}
+
+.student-select option {
+  color: #2c3e50;
+  background: #fff;
+}
