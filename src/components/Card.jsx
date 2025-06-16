@@ -38,8 +38,10 @@ const Card = ({ data, fetchProjects }) => {
 		});
 	};
 
-	const handleFileDownload = () => {
-		axios.get(`https://monosortcoffee.ru/scsp/file/download/${data.id}`,
+	const handleFileDownload = (id) => {
+    // Найти файл по id
+    const file = files.find(f => f.id === id);
+		axios.get(`https://monosortcoffee.ru/scsp/files/download/${id}`,
 		{
 			headers: {
 				"Authorization": `Bearer ${localStorage.getItem("token")}`
@@ -47,10 +49,18 @@ const Card = ({ data, fetchProjects }) => {
 			responseType: 'blob'
 		})
 		.then((response) => {
+			let fileName = file && file.fileName ? file.fileName : data.name;
+			const disposition = response.headers['content-disposition'];
+			if (disposition && disposition.indexOf('filename=') !== -1) {
+				const matches = /filename[^;=\n]*=((['"]).*?\2|[^;\n]*)/.exec(disposition);
+				if (matches != null && matches[1]) {
+					fileName = decodeURIComponent(matches[1].replace(/['"]/g, ''));
+				}
+			}
 			const url = window.URL.createObjectURL(new Blob([response.data]));
 			const link = document.createElement('a');
 			link.href = url;
-			link.setAttribute('download', `${data.name}.zip`);
+			link.setAttribute('download', fileName);
 			document.body.appendChild(link);
 			link.click();
 			document.body.removeChild(link);
@@ -162,9 +172,7 @@ const Card = ({ data, fetchProjects }) => {
             <div key={index} className="file-item">
               <div className="file-info">
                 <a
-                  href={`https://monosortcoffee.ru/scsp/file/download/${file.id}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
+                  onClick={() => handleFileDownload(file.id)}
                   className="file-link"
                 >
                   {file.fileName}

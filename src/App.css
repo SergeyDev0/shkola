@@ -10,6 +10,12 @@ body {
   min-height: 100vh;
 }
 
+button {
+	cursor: pointer;
+	background: none;
+	border: none;
+}
+
 .app {
   max-width: 1200px;
   margin: 0 auto;
@@ -481,6 +487,8 @@ body {
   display: flex;
   align-items: center;
   gap: 5px;
+	text-align: left;
+	width: fit-content;
 }
 
 .file-link:hover {
