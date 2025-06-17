@@ -7,7 +7,7 @@ const Card = ({ data, fetchProjects }) => {
 	const [files, setFiles] = useState([]);
 	const [isUploading, setIsUploading] = useState(false);
 	const [uploadError, setUploadError] = useState("");
-	const [selectedFileName, setSelectedFileName] = useState(""); // Added new state
+	const [selectedFileName, setSelectedFileName] = useState(""); 
   const isAdmin = localStorage.getItem("isAdmin") || "false";
 
 	useEffect(() => {
@@ -39,7 +39,6 @@ const Card = ({ data, fetchProjects }) => {
 	};
 
 	const handleFileDownload = (id) => {
-    // Найти файл по id
     const file = files.find(f => f.id === id);
 		axios.get(`https://monosortcoffee.ru/scsp/files/download/${id}`,
 		{
